@@ -48,6 +48,9 @@ namespace Hafina.Web.ViewModels
         // Tài sản dài hạn khác
         public decimal OtherLongTermAssets { get; set; }
 
+        // Tổng cộng tài sản
+        public decimal TotalAssets { get; set; }
+
         // Nợ ngắn hạn
         public decimal ShortTermLiabilities { get; set; }
 

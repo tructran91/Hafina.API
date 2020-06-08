@@ -44,6 +44,7 @@ namespace Hafina.Web
 
             services.AddScoped<ICompanyViewModelService, CompanyViewModelService>();
             services.AddScoped<IFinancialReportViewModelService, FinancialReportViewModelService>();
+            services.AddScoped<IForecastReportViewModelService, ForecastReportViewModelService>();
 
             // Add memory cache services
             services.AddMemoryCache();

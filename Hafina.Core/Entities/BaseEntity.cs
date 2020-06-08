@@ -7,7 +7,7 @@ namespace Hafina.Core.Entities
     {
         public virtual string CreatedBy { get; set; }
 
-        public virtual DateTime? CreatedAt { get; set; }
+        public virtual DateTime CreatedAt { get; set; }
 
         public virtual string UpdatedBy { get; set; }
 

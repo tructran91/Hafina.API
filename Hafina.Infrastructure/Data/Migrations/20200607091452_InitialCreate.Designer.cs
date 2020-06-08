@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hafina.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(HafinaContext))]
-    [Migration("20200518061341_AddTotalAssets")]
-    partial class AddTotalAssets
+    [Migration("20200607091452_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.0-preview.3.20181.2")
+                .HasAnnotation("ProductVersion", "5.0.0-preview.4.20220.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -37,7 +37,7 @@ namespace Hafina.Infrastructure.Data.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
@@ -120,40 +120,40 @@ namespace Hafina.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal?>("AccountingProfitBeforeTax")
+                    b.Property<decimal>("AccountingProfitBeforeTax")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("BasicEarningsPerShare")
+                    b.Property<decimal>("BasicEarningsPerShare")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("BenefitsOfMinorityShareholders")
+                    b.Property<decimal>("BenefitsOfMinorityShareholders")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("CostOfGoodsSold")
+                    b.Property<decimal>("CostOfGoodsSold")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("CurrentCorporateIncomeTaxExpense")
+                    b.Property<decimal>("CurrentCorporateIncomeTaxExpense")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("DeclineEarningsPerShare")
+                    b.Property<decimal>("DeclineEarningsPerShare")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("DeductibleRevenue")
+                    b.Property<decimal>("DeductibleRevenue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("DeferredCorporateIncomeTaxExpense")
+                    b.Property<decimal>("DeferredCorporateIncomeTaxExpense")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("Dividend")
+                    b.Property<decimal>("Dividend")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Duration")
@@ -162,52 +162,52 @@ namespace Hafina.Infrastructure.Data.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("EnterpriseCostManagement")
+                    b.Property<decimal>("EnterpriseCostManagement")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("FinancialExpenses")
+                    b.Property<decimal>("FinancialExpenses")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("GrossProfitOfGoodsAndServices")
+                    b.Property<decimal>("GrossProfitOfGoodsAndServices")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("InterestExpenses")
+                    b.Property<decimal>("InterestExpenses")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<decimal?>("NetProfitFromBusinessActivities")
+                    b.Property<decimal>("NetProfitFromBusinessActivities")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("NetSalesOfGoodsAndServices")
+                    b.Property<decimal>("NetSalesOfGoodsAndServices")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("OtherCosts")
+                    b.Property<decimal>("OtherCosts")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("OtherIncome")
+                    b.Property<decimal>("OtherIncome")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("OtherProfits")
+                    b.Property<decimal>("OtherProfits")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("ProfitAfterTaxCorporateIncome")
+                    b.Property<decimal>("ProfitAfterTaxCorporateIncome")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("ProfitAfterTaxOfTheParentCompany")
+                    b.Property<decimal>("ProfitAfterTaxOfTheParentCompany")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("ProfitOrLossInJointVenturesOrAssociates")
+                    b.Property<decimal>("ProfitOrLossInJointVenturesOrAssociates")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("RevenueFromFinancialActivities")
+                    b.Property<decimal>("RevenueFromFinancialActivities")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("SalesOfGoodsAndServices")
+                    b.Property<decimal>("SalesOfGoodsAndServices")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("SellingExpenses")
+                    b.Property<decimal>("SellingExpenses")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StartDate")
@@ -236,7 +236,7 @@ namespace Hafina.Infrastructure.Data.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")

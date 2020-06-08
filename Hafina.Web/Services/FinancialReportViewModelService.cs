@@ -28,13 +28,13 @@ namespace Hafina.Web.Services
 
         public async Task<FinancialReportViewModel> GetFinancialReportByCompany(string companyCode, string type, int pageIndex, int itemsPage)
         {
-            var businessResultQuery = _businessResultRepository.Query(t => t.Company.Code == companyCode && (type == "year" ? (t.EndDate.Month - t.StartDate.Month) == 11 : (t.EndDate.Month - t.StartDate.Month) == 2) && !t.IsDeleted);
+            var businessResultQuery = _businessResultRepository.Query(t => t.Company.Code == companyCode && (type == "annual" ? (t.EndDate.Month - t.StartDate.Month) == 11 : (t.EndDate.Month - t.StartDate.Month) == 2) && !t.IsDeleted);
             var businessResults = await businessResultQuery
                 .OrderByDescending(t => t.StartDate)
                 .Skip(itemsPage * pageIndex)
                 .Take(itemsPage)
                 .ToListAsync();
-            var balanceSheets = await _balanceSheetRepository.Query(t => t.Company.Code == companyCode && (type == "year" ? (t.EndDate.Month - t.StartDate.Month) == 11 : (t.EndDate.Month - t.StartDate.Month) == 2) && !t.IsDeleted)
+            var balanceSheets = await _balanceSheetRepository.Query(t => t.Company.Code == companyCode && (type == "annual" ? (t.EndDate.Month - t.StartDate.Month) == 11 : (t.EndDate.Month - t.StartDate.Month) == 2) && !t.IsDeleted)
                 .OrderByDescending(t => t.StartDate)
                 .Skip(itemsPage * pageIndex)
                 .Take(itemsPage)
