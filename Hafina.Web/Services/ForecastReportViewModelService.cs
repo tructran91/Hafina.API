@@ -61,12 +61,12 @@ namespace Hafina.Web.Services
                 var businessResultAfter = businessResults[i];
                 var businessResultBefore = businessResults[i + 1];
 
-                forecast.GrowthRateSalesOfGoodsAndServicesYoY = Math.Round((businessResultAfter.SalesOfGoodsAndServices - businessResultBefore.SalesOfGoodsAndServices) / businessResultAfter.SalesOfGoodsAndServices * 100, 4);
-                forecast.GrowthRateCostOfGoodsSoldYoY = Math.Round((businessResultAfter.CostOfGoodsSold - businessResultBefore.CostOfGoodsSold) / businessResultAfter.CostOfGoodsSold * 100, 4);
-                forecast.GrowthRateGrossProfitOfGoodsAndServicesYoY = Math.Round((businessResultAfter.GrossProfitOfGoodsAndServices - businessResultBefore.GrossProfitOfGoodsAndServices) / businessResultAfter.GrossProfitOfGoodsAndServices * 100, 4);
-                forecast.GrowthRateOtherProfitsYoY = Math.Round((businessResultAfter.OtherProfits - businessResultBefore.OtherProfits) / businessResultAfter.OtherProfits * 100, 4);
-                forecast.GrowthRateAccountingProfitBeforeTaxYoY = Math.Round((businessResultAfter.AccountingProfitBeforeTax - businessResultBefore.AccountingProfitBeforeTax) / businessResultAfter.AccountingProfitBeforeTax * 100, 4);
-                forecast.GrowthRateProfitAfterTaxCorporateIncomeYoY = Math.Round((businessResultAfter.ProfitAfterTaxCorporateIncome - businessResultBefore.ProfitAfterTaxCorporateIncome) / businessResultAfter.ProfitAfterTaxCorporateIncome * 100, 4);
+                forecast.GrowthRateSalesOfGoodsAndServicesYoY = (businessResultAfter.SalesOfGoodsAndServices - businessResultBefore.SalesOfGoodsAndServices) / businessResultAfter.SalesOfGoodsAndServices * 100;
+                forecast.GrowthRateCostOfGoodsSoldYoY = (businessResultAfter.CostOfGoodsSold - businessResultBefore.CostOfGoodsSold) / businessResultAfter.CostOfGoodsSold * 100;
+                forecast.GrowthRateGrossProfitOfGoodsAndServicesYoY = (businessResultAfter.GrossProfitOfGoodsAndServices - businessResultBefore.GrossProfitOfGoodsAndServices) / businessResultAfter.GrossProfitOfGoodsAndServices * 100;
+                forecast.GrowthRateOtherProfitsYoY = (businessResultAfter.OtherProfits - businessResultBefore.OtherProfits) / businessResultAfter.OtherProfits * 100;
+                forecast.GrowthRateAccountingProfitBeforeTaxYoY = (businessResultAfter.AccountingProfitBeforeTax - businessResultBefore.AccountingProfitBeforeTax) / businessResultAfter.AccountingProfitBeforeTax * 100;
+                forecast.GrowthRateProfitAfterTaxCorporateIncomeYoY = (businessResultAfter.ProfitAfterTaxCorporateIncome - businessResultBefore.ProfitAfterTaxCorporateIncome) / businessResultAfter.ProfitAfterTaxCorporateIncome * 100;
 
                 forecastBusinessResults.Add(forecast);
 
@@ -77,12 +77,12 @@ namespace Hafina.Web.Services
                 averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY += forecast.GrowthRateAccountingProfitBeforeTaxYoY;
                 averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY += forecast.GrowthRateProfitAfterTaxCorporateIncomeYoY;
             }
-            averageIndicators.GrowthRateSalesOfGoodsAndServicesYoY /= forecastBusinessResults.Count;
-            averageIndicators.GrowthRateCostOfGoodsSoldYoY /= forecastBusinessResults.Count;
-            averageIndicators.GrowthRateGrossProfitOfGoodsAndServicesYoY /= forecastBusinessResults.Count;
-            averageIndicators.GrowthRateOtherProfitsYoY /= forecastBusinessResults.Count;
-            averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY /= forecastBusinessResults.Count;
-            averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateSalesOfGoodsAndServicesYoY = Math.Round(averageIndicators.GrowthRateSalesOfGoodsAndServicesYoY / forecastBusinessResults.Count, 4);
+            averageIndicators.GrowthRateCostOfGoodsSoldYoY = Math.Round(averageIndicators.GrowthRateCostOfGoodsSoldYoY / forecastBusinessResults.Count, 4);
+            averageIndicators.GrowthRateGrossProfitOfGoodsAndServicesYoY = Math.Round(averageIndicators.GrowthRateGrossProfitOfGoodsAndServicesYoY / forecastBusinessResults.Count, 4);
+            averageIndicators.GrowthRateOtherProfitsYoY = Math.Round(averageIndicators.GrowthRateOtherProfitsYoY / forecastBusinessResults.Count, 4);
+            averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY = Math.Round(averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY / forecastBusinessResults.Count, 4);
+            averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY = Math.Round(averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY / forecastBusinessResults.Count, 4);
 
             return averageIndicators;
         }
@@ -97,11 +97,11 @@ namespace Hafina.Web.Services
                 var balanceSheetAfter = balanceSheets[i];
                 var balanceSheetBefore = balanceSheets[i + 1];
 
-                forecast.GrowthRateCurrentAssetsYoY = Math.Round((balanceSheetAfter.CurrentAssets - balanceSheetBefore.CurrentAssets) / balanceSheetAfter.CurrentAssets * 100, 4);
-                forecast.GrowthRateTotalAssetsYoy = Math.Round((balanceSheetAfter.TotalAssets - balanceSheetBefore.TotalAssets) / balanceSheetAfter.TotalAssets * 100, 4);
-                forecast.GrowthRateShortTermLiabilitiesYoY = Math.Round((balanceSheetAfter.ShortTermLiabilities - balanceSheetBefore.ShortTermLiabilities) / balanceSheetAfter.ShortTermLiabilities * 100, 4);
-                forecast.GrowthRateLongTermLiabilitiesYoY = Math.Round((balanceSheetAfter.LongTermLiabilities - balanceSheetBefore.LongTermLiabilities) / balanceSheetAfter.LongTermLiabilities * 100, 4);
-                forecast.GrowthRateOwnersEquityYoY = Math.Round((balanceSheetAfter.OwnersEquity - balanceSheetBefore.OwnersEquity) / balanceSheetAfter.OwnersEquity * 100, 4);
+                forecast.GrowthRateCurrentAssetsYoY = (balanceSheetAfter.CurrentAssets - balanceSheetBefore.CurrentAssets) / balanceSheetAfter.CurrentAssets * 100;
+                forecast.GrowthRateTotalAssetsYoy = (balanceSheetAfter.TotalAssets - balanceSheetBefore.TotalAssets) / balanceSheetAfter.TotalAssets * 100;
+                forecast.GrowthRateShortTermLiabilitiesYoY = (balanceSheetAfter.ShortTermLiabilities - balanceSheetBefore.ShortTermLiabilities) / balanceSheetAfter.ShortTermLiabilities * 100;
+                forecast.GrowthRateLongTermLiabilitiesYoY = (balanceSheetAfter.LongTermLiabilities - balanceSheetBefore.LongTermLiabilities) / balanceSheetAfter.LongTermLiabilities * 100;
+                forecast.GrowthRateOwnersEquityYoY = (balanceSheetAfter.OwnersEquity - balanceSheetBefore.OwnersEquity) / balanceSheetAfter.OwnersEquity * 100;
 
                 forecastBalanceSheets.Add(forecast);
 
@@ -111,11 +111,11 @@ namespace Hafina.Web.Services
                 averageIndicators.GrowthRateLongTermLiabilitiesYoY += forecast.GrowthRateLongTermLiabilitiesYoY;
                 averageIndicators.GrowthRateOwnersEquityYoY += forecast.GrowthRateOwnersEquityYoY;
             }
-            averageIndicators.GrowthRateCurrentAssetsYoY /= forecastBalanceSheets.Count;
-            averageIndicators.GrowthRateTotalAssetsYoy /= forecastBalanceSheets.Count;
-            averageIndicators.GrowthRateShortTermLiabilitiesYoY /= forecastBalanceSheets.Count;
-            averageIndicators.GrowthRateLongTermLiabilitiesYoY /= forecastBalanceSheets.Count;
-            averageIndicators.GrowthRateOwnersEquityYoY /= forecastBalanceSheets.Count;
+            averageIndicators.GrowthRateCurrentAssetsYoY = Math.Round(averageIndicators.GrowthRateCurrentAssetsYoY / forecastBalanceSheets.Count, 4);
+            averageIndicators.GrowthRateTotalAssetsYoy = Math.Round(averageIndicators.GrowthRateTotalAssetsYoy / forecastBalanceSheets.Count, 4);
+            averageIndicators.GrowthRateShortTermLiabilitiesYoY = Math.Round(averageIndicators.GrowthRateShortTermLiabilitiesYoY / forecastBalanceSheets.Count, 4);
+            averageIndicators.GrowthRateLongTermLiabilitiesYoY = Math.Round(averageIndicators.GrowthRateLongTermLiabilitiesYoY / forecastBalanceSheets.Count, 4);
+            averageIndicators.GrowthRateOwnersEquityYoY = Math.Round(averageIndicators.GrowthRateOwnersEquityYoY / forecastBalanceSheets.Count, 4);
 
             return averageIndicators;
         }
