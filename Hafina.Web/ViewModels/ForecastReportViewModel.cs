@@ -7,7 +7,12 @@ namespace Hafina.Web.ViewModels
 {
     public class ForecastReportViewModel
     {
-        public IEnumerable<ForecastBusinessResultViewModel> ForecastBusinessResults { get; set; }
-        public IEnumerable<ForecastBalanceSheetViewModel> ForecastBalanceSheets { get; set; }
+        public ForecastBusinessResultViewModel IndicatorsBusinessResult { get; set; }
+
+        public ForecastBalanceSheetViewModel IndicatorsBalanceSheet { get; set; }
+
+        public BusinessResultViewModel LatestBusinessResultByAnnual { get; set; }
+
+        public BalanceSheetViewModel LatestBalanceSheetByAnnual { get; set; }
     }
 }

@@ -22,10 +22,6 @@ namespace Hafina.Web.ViewModels
         // Tốc độ tăng trưởng vốn chủ sở hữu hàng năm
         public decimal GrowthRateOwnersEquityYoY { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
-
         public string Duration { get; set; }
     }
 }

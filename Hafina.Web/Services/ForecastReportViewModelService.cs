@@ -30,28 +30,31 @@ namespace Hafina.Web.Services
         {
             var businessResults = await _businessResultRepository.Query(t => t.Company.Code == companyCode && (t.EndDate.Month - t.StartDate.Month == 11) && !t.IsDeleted)
                 .OrderByDescending(t => t.StartDate)
-                .Take(5)
+                .Take(4)
                 .ToListAsync();
             var balanceSheets = await _balanceSheetRepository.Query(t => t.Company.Code == companyCode && (t.EndDate.Month - t.StartDate.Month == 11) && !t.IsDeleted)
                 .OrderByDescending(t => t.StartDate)
-                .Take(5)
+                .Take(4)
                 .ToListAsync();
 
-            var forecastBusinessResults = CalculateForecastBusinessResult(businessResults);
-            var forecastBalanceSheets = CalculateForecastBalanceSheet(balanceSheets);
+            var forecastBusinessResults = CalculateAverageIndicatorsBusinessResult(businessResults);
+            var forecastBalanceSheets = CalculateAverageIndicatorsBalanceSheet(balanceSheets);
 
             var vm = new ForecastReportViewModel()
             {
-                ForecastBusinessResults = _mapper.Map<List<ForecastBusinessResultViewModel>>(forecastBusinessResults).OrderBy(t => t.StartDate),
-                ForecastBalanceSheets = _mapper.Map<List<ForecastBalanceSheetViewModel>>(forecastBalanceSheets).OrderBy(t => t.StartDate)
+                IndicatorsBalanceSheet = forecastBalanceSheets,
+                IndicatorsBusinessResult = forecastBusinessResults,
+                LatestBalanceSheetByAnnual = _mapper.Map<BalanceSheetViewModel>(balanceSheets.FirstOrDefault()),
+                LatestBusinessResultByAnnual = _mapper.Map<BusinessResultViewModel>(businessResults.FirstOrDefault())
             };
 
             return vm;
         }
 
-        private List<ForecastBusinessResultViewModel> CalculateForecastBusinessResult(List<BusinessResult> businessResults)
+        private ForecastBusinessResultViewModel CalculateAverageIndicatorsBusinessResult(List<BusinessResult> businessResults)
         {
             var forecastBusinessResults = new List<ForecastBusinessResultViewModel>();
+            var averageIndicators = new ForecastBusinessResultViewModel();
             for (int i = 0; i < businessResults.Count - 1; i++)
             {
                 var forecast = new ForecastBusinessResultViewModel();
@@ -65,18 +68,29 @@ namespace Hafina.Web.Services
                 forecast.GrowthRateAccountingProfitBeforeTaxYoY = Math.Round((businessResultAfter.AccountingProfitBeforeTax - businessResultBefore.AccountingProfitBeforeTax) / businessResultAfter.AccountingProfitBeforeTax * 100, 4);
                 forecast.GrowthRateProfitAfterTaxCorporateIncomeYoY = Math.Round((businessResultAfter.ProfitAfterTaxCorporateIncome - businessResultBefore.ProfitAfterTaxCorporateIncome) / businessResultAfter.ProfitAfterTaxCorporateIncome * 100, 4);
 
-                forecast.Duration = businessResultAfter.Duration;
-                forecast.StartDate = businessResultAfter.StartDate;
-                forecast.EndDate = businessResultAfter.EndDate;
-
                 forecastBusinessResults.Add(forecast);
+
+                averageIndicators.GrowthRateSalesOfGoodsAndServicesYoY += forecast.GrowthRateSalesOfGoodsAndServicesYoY;
+                averageIndicators.GrowthRateCostOfGoodsSoldYoY += forecast.GrowthRateCostOfGoodsSoldYoY;
+                averageIndicators.GrowthRateGrossProfitOfGoodsAndServicesYoY += forecast.GrowthRateGrossProfitOfGoodsAndServicesYoY;
+                averageIndicators.GrowthRateOtherProfitsYoY += forecast.GrowthRateOtherProfitsYoY;
+                averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY += forecast.GrowthRateAccountingProfitBeforeTaxYoY;
+                averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY += forecast.GrowthRateProfitAfterTaxCorporateIncomeYoY;
             }
-            return forecastBusinessResults;
+            averageIndicators.GrowthRateSalesOfGoodsAndServicesYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateCostOfGoodsSoldYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateGrossProfitOfGoodsAndServicesYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateOtherProfitsYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateAccountingProfitBeforeTaxYoY /= forecastBusinessResults.Count;
+            averageIndicators.GrowthRateProfitAfterTaxCorporateIncomeYoY /= forecastBusinessResults.Count;
+
+            return averageIndicators;
         }
 
-        private List<ForecastBalanceSheetViewModel> CalculateForecastBalanceSheet(List<BalanceSheet> balanceSheets)
+        private ForecastBalanceSheetViewModel CalculateAverageIndicatorsBalanceSheet(List<BalanceSheet> balanceSheets)
         {
             var forecastBalanceSheets = new List<ForecastBalanceSheetViewModel>();
+            var averageIndicators = new ForecastBalanceSheetViewModel();
             for (int i = 0; i < balanceSheets.Count - 1; i++)
             {
                 var forecast = new ForecastBalanceSheetViewModel();
@@ -89,13 +103,21 @@ namespace Hafina.Web.Services
                 forecast.GrowthRateLongTermLiabilitiesYoY = Math.Round((balanceSheetAfter.LongTermLiabilities - balanceSheetBefore.LongTermLiabilities) / balanceSheetAfter.LongTermLiabilities * 100, 4);
                 forecast.GrowthRateOwnersEquityYoY = Math.Round((balanceSheetAfter.OwnersEquity - balanceSheetBefore.OwnersEquity) / balanceSheetAfter.OwnersEquity * 100, 4);
 
-                forecast.Duration = balanceSheetAfter.Duration;
-                forecast.StartDate = balanceSheetAfter.StartDate;
-                forecast.EndDate = balanceSheetAfter.EndDate;
-
                 forecastBalanceSheets.Add(forecast);
+
+                averageIndicators.GrowthRateCurrentAssetsYoY += forecast.GrowthRateCurrentAssetsYoY;
+                averageIndicators.GrowthRateTotalAssetsYoy += forecast.GrowthRateTotalAssetsYoy;
+                averageIndicators.GrowthRateShortTermLiabilitiesYoY += forecast.GrowthRateShortTermLiabilitiesYoY;
+                averageIndicators.GrowthRateLongTermLiabilitiesYoY += forecast.GrowthRateLongTermLiabilitiesYoY;
+                averageIndicators.GrowthRateOwnersEquityYoY += forecast.GrowthRateOwnersEquityYoY;
             }
-            return forecastBalanceSheets;
+            averageIndicators.GrowthRateCurrentAssetsYoY /= forecastBalanceSheets.Count;
+            averageIndicators.GrowthRateTotalAssetsYoy /= forecastBalanceSheets.Count;
+            averageIndicators.GrowthRateShortTermLiabilitiesYoY /= forecastBalanceSheets.Count;
+            averageIndicators.GrowthRateLongTermLiabilitiesYoY /= forecastBalanceSheets.Count;
+            averageIndicators.GrowthRateOwnersEquityYoY /= forecastBalanceSheets.Count;
+
+            return averageIndicators;
         }
     }
 }

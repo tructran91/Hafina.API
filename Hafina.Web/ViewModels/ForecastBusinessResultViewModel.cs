@@ -25,10 +25,6 @@ namespace Hafina.Web.ViewModels
         // Tốc độ tăng trưởng lợi nhuận sau thuế thu nhập doanh nghiệp hàng năm
         public decimal GrowthRateProfitAfterTaxCorporateIncomeYoY { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
-
         public string Duration { get; set; }
     }
 }
